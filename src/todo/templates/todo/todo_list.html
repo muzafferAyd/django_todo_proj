@@ -5,11 +5,21 @@
 <div>
     <h3>Todo List</h3>
     <ul>
+        <a href="{%url 'todo-create'%}"><button>Add Todo</button></a>
         {% for todo in todos %}
+        <a href="{% url 'todo-update' todo.id %}">
+        {% if todo.completed %}
         <li>
-            {{todo}}
+            <del> {{todo}} </del>
         </li>
+        {% else %}
+            <li>
+                {{todo}}
+            </li>
+        {% endif %}           
+        </a>
         {% endfor %}
+
     </ul>
 </div>
 

@@ -19,7 +19,7 @@ def todo_create(request):
         form = TodoAddForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("house")
+            return redirect("todo-list")
     context = {
         'form' : form
     }
@@ -38,4 +38,16 @@ def todo_update(request, id):
         'form' : form
     }
     return render(request, "todo/todo_update.html", context )
+
+
+def todo_delete(request, id):
+    todo = get_object_or_404(Todo, id=id)
+    if request.method == "POST":
+        todo.delete()
+        return redirect("todo-list")
+    context = {
+        'todo' : todo
+    }
+
+    return render(request, "todo/todo_delete.html", context)
 
